@@ -86,6 +86,16 @@ async function startServer() {
             return { name: user.name, phone: user.phone, status: 'success', noAuth: true };
           }
 
+          // Basic email validation check
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(user.email)) {
+             return { 
+                email: user.email, 
+                error: "Invalid email format provided", 
+                status: 'failed' 
+             };
+          }
+
           let uid: string | null = null;
           const userPassword = getValidPassword(user.password);
 
